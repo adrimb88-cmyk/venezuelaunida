@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Venezuela Unida — Ayuda post-terremoto</title>
+<meta name="description" content="Plataforma para centralizar causas de personas y familias afectadas por el terremoto en Venezuela. Todos los casos son verificados antes de publicarse.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="flag-stripe"><div class="f1"></div><div class="f2"></div><div class="f3"></div></div>
+
+<header>
+  <div class="header-inner">
+    <div class="logo">Venezuela <span>Unida</span></div>
+    <div class="header-actions">
+      <button class="btn btn-primary" onclick="openModal('register')">+ Agregar causa</button>
+      <button class="btn btn-sm" onclick="goAdmin()">Admin</button>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <h1>Encuentra o agrega una causa post-terremoto</h1>
+    <p>Centralizamos a personas y familias particulares que necesitan ayuda tras el terremoto en Venezuela. Todos los casos son verificados por un equipo voluntario antes de publicarse. Sin organismos, sin intermediarios — directo a quien lo necesita.</p>
+    <div class="hero-btns">
+      <button class="btn btn-primary" onclick="document.getElementById('casos').scrollIntoView({behavior:'smooth'})">Ver causas →</button>
+      <button class="btn" onclick="openModal('register')">Agregar causa</button>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-n" id="stat-total">—</div><div class="stat-l">Causas verificadas</div></div>
+      <div class="stat"><div class="stat-n" id="stat-estados">—</div><div class="stat-l">Estados del país</div></div>
+      <div class="stat"><div class="stat-n" id="stat-pendientes">—</div><div class="stat-l">En revisión</div></div>
+    </div>
+  </div>
+</section>
+
+<main class="main" id="casos">
+
+  <div class="filters-bar">
+    <input type="text" class="search-box" id="search" placeholder="Buscar por nombre o zona..." oninput="applyFilters()">
+    <button class="filter-chip active" data-cat="all" onclick="setCat(this,'all')">Todas</button>
+    <button class="filter-chip" data-cat="vivienda" onclick="setCat(this,'vivienda')">Vivienda</button>
+    <button class="filter-chip" data-cat="salud" onclick="setCat(this,'salud')">Gastos hospitalarios</button>
+    <button class="filter-chip" data-cat="funerarios" onclick="setCat(this,'funerarios')">Gastos funerarios</button>
+    <button class="filter-chip" data-cat="transporte" onclick="setCat(this,'transporte')">Transporte</button>
+    <button class="filter-chip" data-cat="alimentacion" onclick="setCat(this,'alimentacion')">Alimentación</button>
+    <button class="filter-chip" data-cat="ninos" onclick="setCat(this,'ninos')">Bebés / niños</button>
+    <button class="filter-chip" data-cat="mascotas" onclick="setCat(this,'mascotas')">Mascotas</button>
+    <button class="filter-chip" data-cat="bienes" onclick="setCat(this,'bienes')">Pérdida de bienes</button>
+    <button class="filter-chip" data-cat="otros" onclick="setCat(this,'otros')">Otros</button>
+  </div>
+
+  <div class="zone-filter">
+    <label class="filter-label">Estado:</label>
+    <select id="zone-select" onchange="applyFilters()">
+      <option value="all">Todos los estados</option>
+      <option>Amazonas</option><option>Anzoátegui</option><option>Apure</option>
+      <option>Aragua</option><option>Barinas</option><option>Bolívar</option>
+      <option>Carabobo</option><option>Caracas (D.C.)</option><option>Cojedes</option>
+      <option>Delta Amacuro</option><option>Falcón</option><option>Guárico</option>
+      <option>Lara</option><option>Mérida</option><option>Miranda</option>
+      <option>Monagas</option><option>Nueva Esparta</option><option>Portuguesa</option>
+      <option>Sucre</option><option>Táchira</option><option>Trujillo</option>
+      <option>Vargas (La Guaira)</option><option>Yaracuy</option><option>Zulia</option>
+      <option>Otra</option>
+    </select>
+  </div>
+
+  <div class="cards-grid" id="cards-grid">
+    <div class="loading">Cargando causas...</div>
+  </div>
+
+</main>
+
+<footer>
+  Venezuela Unida · Plataforma comunitaria · Todos los casos son verificados antes de publicarse · No gestionamos fondos directamente
+</footer>
+
+<!-- MODAL CONTAINER -->
+<div id="overlay" class="overlay hidden" onclick="overlayClick(event)">
+  <div class="modal" id="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
