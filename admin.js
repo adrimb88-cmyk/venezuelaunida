@@ -43,16 +43,16 @@ async function doLogin() {
     .from('admins')
     .select('*')
     .eq('username', username)
-    .eq('password', password)
-    .single();
+    .eq('password', password);
 
-  if (error || !data) {
+  if (error || !data || data.length === 0) {
     errEl.textContent = 'Usuario o contraseña incorrectos.';
     errEl.classList.remove('hidden');
     return;
   }
 
-  currentSession = { username: data.username, name: data.name, role: data.role };
+  const admin = data[0];
+  currentSession = { username: admin.username, name: admin.name, role: admin.role };
   sessionStorage.setItem('vu_admin_session', JSON.stringify(currentSession));
   showAdminPanel();
 }
