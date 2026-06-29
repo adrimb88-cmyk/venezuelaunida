@@ -66,8 +66,8 @@ function doLogout() {
 
 // ---- SHOW ADMIN PANEL ----
 async function showAdminPanel() {
-  document.getElementById('login-section').classList.add('hidden');
-  document.getElementById('admin-section').classList.remove('hidden');
+  document.getElementById('login-section').style.display = 'none';
+  document.getElementById('admin-section').style.display = 'block';
   document.getElementById('session-info').textContent = 'Sesion: ' + currentSession.name + ' (' + currentSession.role + ')';
 
   if (currentSession.role === 'superadmin') {
